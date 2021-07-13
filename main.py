@@ -4,6 +4,7 @@ import string
 import random
 import base64
 import requests
+from time import time
 from random_user_agent.user_agent import UserAgent
 
 if sys.platform == "linux":
