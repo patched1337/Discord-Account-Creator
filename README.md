@@ -6,10 +6,10 @@
 - `If you come across a error please open a new issue and report it.`
 - `Account being phone locked automaticly.`
 
-## Requirements
- ### Captcha solving services
- - `Capmonster: ✅`
- - `2Captcha: ❌`
 
- ## SMS services
- - `No sms services added yet.`
+## Captcha solving services
+- `Capmonster: ✅`
+- `2Captcha: ❌`
+
+## SMS services
+- `No sms services added yet.`
