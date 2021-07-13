@@ -160,7 +160,7 @@ class Tempmail:
         if "address" in r.text:
             return r.json()["address"], str(r.cookies).split("ci_session=")[1].split(" ")[0]
         else:
-            return {"error": "Failed."}
+            return
 
     def inbox(self):
         r = self.session.post("https://10minutesemail.xyz/getInbox", headers=self.headers())
