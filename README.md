@@ -6,7 +6,6 @@
 - `If you come across a error please open a new issue and report it.`
 - `Account being phone locked automaticly.`
 
-
 ## Captcha solving services
 - `Capmonster: ✅`
 - `2Captcha: ❌`
