@@ -140,6 +140,32 @@ class Capmonster:
 
         return result
 
+
+class Tempmail:
+
+    def __init__(self):
+        self.session = requests.session()
+        self.created = self.create()
+        self.session = self.created[1]
+        self.address = self.created[0]
+        self.time = round(time())
+
+    def headers(self):
+        return {
+            "cookie": f"lisansimo={self.time}; ci_session={self.session}"
+        }
+
+    def create(self):
+        r = self.session.post("https://10minutesemail.xyz/getEmailAddress")
+        if "address" in r.text:
+            return r.json()["address"], str(r.cookies).split("ci_session=")[1].split(" ")[0]
+        else:
+            return {"error": "Failed."}
+
+    def inbox(self):
+        r = self.session.post("https://10minutesemail.xyz/getInbox", headers=self.headers())
+        return r.json()
+
 class Discord:
 
     def __init__(self):
