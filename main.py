@@ -145,11 +145,14 @@ class Capmonster:
 class Tempmail:
 
     def __init__(self):
-        self.session = requests.session()
-        self.created = self.create()
-        self.session = self.created[1]
-        self.address = self.created[0]
-        self.time = round(time())
+        try:
+            self.session = requests.session()
+            self.created = self.create()
+            self.session = self.created[1]
+            self.address = self.created[0]
+            self.time = round(time())
+        except Exception:
+            raise Exception("failed to create new tempmail.")
 
     def headers(self):
         return {
