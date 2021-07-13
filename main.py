@@ -1,11 +1,54 @@
 import os
 import sys
+import string
+import random
 import requests
+from random_user_agent.user_agent import UserAgent
 
 if sys.platform == "linux":
     clear = lambda: os.system("clear")
 else:
     clear = lambda: os.system("cls")
+
+class Misc:
+
+    def discord_headers():
+        fingerprint = requests.get("https://discord.com/api/v9/experiments").json()["fingerprint"]
+        ua = UserAgent(limit=100).get_random_user_agent()
+        super = base64.b64encode(str({
+            "os": "Windows",
+            "browser": "Chrome",
+            "device": "",
+            "system_locale": "en-US",
+            "browser_user_agent": ua,
+            "browser_version": "91.0.4472.101",
+            "os_version": "10",
+            "referrer": f"https://discord.com/register",
+            "referring_domain": "",
+            "referrer_current": "",
+            "referring_domain_current": "",
+            "release_channel": "stable",
+            "client_build_number": 87598,
+            "client_event_source": None
+        }).encode()).decode()
+        return {
+            "accept": "*/*",
+            "accept-encoding": "gzip, deflate, br",
+            "accept-language": "en-US",
+            "authorization": "undefined",
+            "content-length": None,
+            "content-type": "application/json",
+            "cookie": "__dcfduid=%s; locale=en-US" % (self.random(32)),
+            "origin": "https://discord.com",
+            "referer": "https://discord.com/register",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin",
+            "sec-gpc": "1",
+            "user-agent": ua,
+            "x-fingerprint": fingerprint,
+            "x-super-properties": super,
+        }
 
 class Capmonster:
 
@@ -83,7 +126,7 @@ class Capmonster:
             raise Exception("failed to create new task.")
 
         result = self._task_result(tid)
-        while result is None
+        while result is None:
             result = self._task_result(tid)
             if result == False:
                 break
