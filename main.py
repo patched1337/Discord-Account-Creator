@@ -32,7 +32,7 @@ class Misc:
             "client_build_number": 87598,
             "client_event_source": None
         }).encode()).decode()
-        return {
+        return fingerprint, {
             "accept": "*/*",
             "accept-encoding": "gzip, deflate, br",
             "accept-language": "en-US",
@@ -49,6 +49,13 @@ class Misc:
             "x-fingerprint": fingerprint,
             "x-super-properties": super,
         }
+
+    def discord_consent():
+        consent = requests.get("https://discord.com/api/v9/auth/location-metadata")
+        if consent.status_code == 429:
+            return consent.json()
+        else:
+            return
 
 class Capmonster:
 
@@ -133,4 +140,31 @@ class Capmonster:
 
         return result
 
-print(Misc.discord_headers())
+class Discord:
+
+    def __init__(self):
+        self.session = session
+
+    def _register(self):
+        """
+        fetch("https://discord.com/api/v9/auth/register", {
+        "headers": {
+            "accept": "*/*",
+            "accept-language": "en-GB",
+            "authorization": "undefined",
+            "content-type": "application/json",
+            "sec-fetch-dest": "empty",
+            "sec-fetch-mode": "cors",
+            "sec-fetch-site": "same-origin",
+            "sec-gpc": "1",
+            "x-fingerprint": "xx",
+            "x-super-properties": "xx"
+        },
+        "referrer": "https://discord.com/register",
+        "referrerPolicy": "strict-origin-when-cross-origin",
+        "body": "{\"fingerprint\":\"<fingerprint>\",\"email\":\"<email>\",\"username\":\"<username>\",\"password\":\"<password>\",\"invite\":<invite>,\"consent\":<consent>,\"date_of_birth\":\"<dob>\",\"gift_code_sku_id\":<leave as null>,\"captcha_key\":<captcha>}",
+        "method": "POST",
+        "mode": "cors",
+        "credentials": "include"
+        });
+"       ""
