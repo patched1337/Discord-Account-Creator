@@ -2,6 +2,7 @@ import os
 import sys
 import string
 import random
+import base64
 import requests
 from random_user_agent.user_agent import UserAgent
 
@@ -38,7 +39,6 @@ class Misc:
             "authorization": "undefined",
             "content-length": None,
             "content-type": "application/json",
-            "cookie": "__dcfduid=%s; locale=en-US" % (self.random(32)),
             "origin": "https://discord.com",
             "referer": "https://discord.com/register",
             "sec-fetch-dest": "empty",
@@ -132,3 +132,5 @@ class Capmonster:
                 break
 
         return result
+
+print(Misc.discord_headers())
