@@ -10,3 +10,6 @@
  ### Captcha solving services
  - `Capmonster: ✅`
  - `2Captcha: ❌`
+
+ ## SMS services
+ - `No sms services added yet.`
