@@ -32,7 +32,7 @@ class Misc:
             "client_build_number": 87598,
             "client_event_source": None
         }).encode()).decode()
-        return fingerprint, {
+        return {
             "accept": "*/*",
             "accept-encoding": "gzip, deflate, br",
             "accept-language": "en-US",
@@ -143,28 +143,24 @@ class Capmonster:
 class Discord:
 
     def __init__(self):
-        self.session = session
+        self.session = requests.session()
 
-    def _register(self):
-        """
-        fetch("https://discord.com/api/v9/auth/register", {
-        "headers": {
-            "accept": "*/*",
-            "accept-language": "en-GB",
-            "authorization": "undefined",
-            "content-type": "application/json",
-            "sec-fetch-dest": "empty",
-            "sec-fetch-mode": "cors",
-            "sec-fetch-site": "same-origin",
-            "sec-gpc": "1",
-            "x-fingerprint": "xx",
-            "x-super-properties": "xx"
-        },
-        "referrer": "https://discord.com/register",
-        "referrerPolicy": "strict-origin-when-cross-origin",
-        "body": "{\"fingerprint\":\"<fingerprint>\",\"email\":\"<email>\",\"username\":\"<username>\",\"password\":\"<password>\",\"invite\":<invite>,\"consent\":<consent>,\"date_of_birth\":\"<dob>\",\"gift_code_sku_id\":<leave as null>,\"captcha_key\":<captcha>}",
-        "method": "POST",
-        "mode": "cors",
-        "credentials": "include"
-        });
-"       ""
+    def _register(self, email: str, username: str, password: str, captcha: str, invite: str = None):
+        headers = Misc.discord_headers()
+        consent = Misc.discord_consent()
+        json = {
+            "fingerprint": headers.get("x-fingerprint"),
+            "email": email,
+            "username": username,
+            "password": password,
+            "invite": invite,
+            "consent": consent,
+            "date_of_birth": "2000-01-01",
+            "gift_code_sku_id": None,
+            "captcha": captcha
+        }
+        r = requests.post("https://discord.com/api/v9/auth/register", headers=headers, json=json)
+        if "token" in r.text:
+            return r.json()["token"]
+        else:
+            return
