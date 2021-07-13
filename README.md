@@ -8,6 +8,7 @@
 
 ## Email verification
 - `Not added yet.`
+
 ## Captcha solving services
 - `Capmonster: ✅`
 - `2Captcha: ❌`
